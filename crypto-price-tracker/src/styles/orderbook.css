@@ -68,6 +68,29 @@
 .orderbook__bids {
   max-height: 220px;
   overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--clr-border) transparent;
+}
+
+.orderbook__asks::-webkit-scrollbar,
+.orderbook__bids::-webkit-scrollbar {
+  width: 4px;
+}
+
+.orderbook__asks::-webkit-scrollbar-track,
+.orderbook__bids::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.orderbook__asks::-webkit-scrollbar-thumb,
+.orderbook__bids::-webkit-scrollbar-thumb {
+  background: var(--clr-border);
+  border-radius: 2px;
+}
+
+.orderbook__asks::-webkit-scrollbar-thumb:hover,
+.orderbook__bids::-webkit-scrollbar-thumb:hover {
+  background: var(--clr-text-secondary);
 }
 
 .orderbook__asks {

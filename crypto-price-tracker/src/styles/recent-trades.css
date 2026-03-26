@@ -53,8 +53,28 @@
 }
 
 /* ── Body scroll ── */
-.recent-trades__body{
-  min-height: 500px;
+.recent-trades__body {
+  height: 500px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--clr-border) transparent;
+}
+
+.recent-trades__body::-webkit-scrollbar {
+  width: 4px;
+}
+
+.recent-trades__body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.recent-trades__body::-webkit-scrollbar-thumb {
+  background: var(--clr-border);
+  border-radius: 2px;
+}
+
+.recent-trades__body::-webkit-scrollbar-thumb:hover {
+  background: var(--clr-text-secondary);
 }
 
 /* ── Row ── */
@@ -63,6 +83,9 @@
   grid-template-columns: 1.2fr 1fr 0.7fr 1fr;
   padding: 7px 20px;
   border-bottom: 1px solid var(--clr-border);
+}
+
+.recent-trades__row--new {
   animation: tradeIn 0.25s ease-out;
 }
 
