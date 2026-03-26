@@ -1,0 +1,35 @@
+/* ── Design tokens ─────────────────────────────────────────────────────────── */
+:root {
+  --clr-bg: #0f1117;
+  --clr-surface: #181b23;
+  --clr-surface-hover: #1e2130;
+  --clr-border: #252836;
+  --clr-text-primary: #f0f2f5;
+  --clr-text-secondary: #7c8090;
+  --clr-accent: #6c63ff;
+  --clr-accent-muted: rgba(108, 99, 255, 0.15);
+  --clr-up: #22c55e;
+  --clr-up-muted: rgba(34, 197, 94, 0.12);
+  --clr-down: #ef4444;
+  --clr-down-muted: rgba(239, 68, 68, 0.12);
+  --clr-gold: #f5c842;
+
+  --clr-navbar-bg: rgba(15, 17, 23, 0.85);
+  --clr-navbar-border: rgba(37, 40, 54, 0.6);
+  --clr-spread-bg: rgba(108, 99, 255, 0.08);
+
+  --font-sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: ui-monospace, Consolas, monospace;
+}
+
+/* ── Light overrides ──────────────────────────────────────────────────────── */
+[data-theme='light'] {
+  --clr-bg: #f5f6fa;
+  --clr-surface: #ffffff;
+  --clr-surface-hover: #f0f2f8;
+  --clr-border: #e4e6ef;
+  --clr-text-primary: #111827;
+  --clr-text-secondary: #6b7280;
+  --clr-navbar-bg: rgba(255, 255, 255, 0.85);
+  --clr-navbar-border: rgba(228, 230, 239, 0.6);
+}

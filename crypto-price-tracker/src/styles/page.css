@@ -1,0 +1,45 @@
+/* ── Page layout ──────────────────────────────────────────────────────────── */
+.page {
+  min-height: 100dvh;
+  background: var(--clr-bg);
+  color: var(--clr-text-primary);
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.page__table-section {
+  padding: 0 1.5rem 3rem;
+}
+
+@media (max-width: 640px) {
+  .page__table-section {
+    padding: 0 0.75rem 2rem;
+  }
+}
+
+/* ── Detail page layout ──────────────────────────────────────────────────── */
+.detail {
+  padding: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.detail__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 860px) {
+  .detail__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .detail {
+    padding: 1rem;
+  }
+}

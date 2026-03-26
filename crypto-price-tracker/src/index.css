@@ -1,0 +1,16 @@
+/* @import must come first — any rule before them causes browsers to skip them */
+@import './styles/variables.css';
+@import './styles/page.css';
+@import './styles/header.css';
+@import './styles/hero.css';
+@import './styles/product-list.css';
+@import './styles/detail-navbar.css';
+@import './styles/coin-header.css';
+@import './styles/stats-strip.css';
+@import './styles/orderbook.css';
+@import './styles/recent-trades.css';
+
+/* ── Reset ────────────────────────────────────────────────────────────────── */
+body {
+  margin: 0;
+}

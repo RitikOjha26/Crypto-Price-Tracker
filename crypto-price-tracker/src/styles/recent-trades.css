@@ -1,0 +1,138 @@
+/* ── Recent Trades Panel ──────────────────────────────────────────────────── */
+.recent-trades {
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: 14px;
+  overflow: hidden;
+  animation: fadeUp 0.4s ease-out 0.1s both;
+}
+
+/* ── Header ── */
+.recent-trades__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--clr-border);
+}
+
+.recent-trades__title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--clr-text-primary);
+}
+
+.recent-trades__count-badge {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--clr-text-secondary);
+  background: var(--clr-surface-hover);
+  border: 1px solid var(--clr-border);
+  border-radius: 4px;
+  padding: 2px 7px;
+}
+
+/* ── Column headers ── */
+.recent-trades__columns {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 0.7fr 1fr;
+  padding: 8px 20px;
+  border-bottom: 1px solid var(--clr-border);
+}
+
+.recent-trades__col-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--clr-text-secondary);
+}
+
+.recent-trades__col-label:not(:first-child) {
+  text-align: right;
+}
+
+/* ── Body scroll ── */
+.recent-trades__body{
+  min-height: 500px;
+}
+
+/* ── Row ── */
+.recent-trades__row {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 0.7fr 1fr;
+  padding: 7px 20px;
+  border-bottom: 1px solid var(--clr-border);
+  animation: tradeIn 0.25s ease-out;
+}
+
+.recent-trades__row:last-child {
+  border-bottom: none;
+}
+
+.recent-trades__row:hover {
+  background: var(--clr-surface-hover);
+}
+
+/* ── Cells ── */
+.recent-trades__cell {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+}
+
+.recent-trades__cell:not(:first-child) {
+  text-align: right;
+}
+
+.recent-trades__cell--price-buy {
+  color: var(--clr-up);
+}
+
+.recent-trades__cell--price-sell {
+  color: var(--clr-down);
+}
+
+.recent-trades__cell--size {
+  color: var(--clr-text-secondary);
+}
+
+.recent-trades__cell--time {
+  color: var(--clr-text-secondary);
+}
+
+/* ── Side chip ── */
+.recent-trades__side-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.recent-trades__side-chip--buy {
+  color: var(--clr-up);
+  background: var(--clr-up-muted);
+}
+
+.recent-trades__side-chip--sell {
+  color: var(--clr-down);
+  background: var(--clr-down-muted);
+}
+
+/* ── Empty state ── */
+.recent-trades__empty {
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--clr-text-secondary);
+  font-size: 13px;
+}
+
+/* ── Animation ── */
+@keyframes tradeIn {
+  from { opacity: 0; transform: translateX(8px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
