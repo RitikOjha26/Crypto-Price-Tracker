@@ -46,14 +46,16 @@ function Orderbook({ orderbook, symbol }: OrderbookProps) {
       levels: { price: string; size: string }[],
     ): ProcessedLevel[] => {
       let cumTotal = 0;
-      const processed = levels.slice(0, maxLevels).map((level) => {
-        cumTotal += parseFloat(level.size);
-        return {
+      const processed = levels.slice(0, maxLevels).flatMap((level) => {
+        const sizeNum = parseFloat(level.size);
+        if (isNaN(sizeNum)) return [];
+        cumTotal += sizeNum;
+        return [{
           price: level.price,
           size: level.size,
           total: cumTotal,
           depthPct: 0,
-        };
+        }];
       });
 
       const maxTotal = cumTotal;

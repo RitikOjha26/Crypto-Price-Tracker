@@ -94,7 +94,12 @@ export class WebSocketService {
         ws?.close();
     }
 
-    addmsgHandler(handler: MessageHandler): () => void {
+    reconnect(): void {
+        this.reconnectAttempts = 0;
+        this.connect();
+    }
+
+    addMsgHandler(handler: MessageHandler): () => void {
         this.handlers.add(handler);
         return () => this.handlers.delete(handler);
     }

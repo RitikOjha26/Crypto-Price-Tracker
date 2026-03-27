@@ -4,6 +4,7 @@ import type { Ticker } from '../../types';
 import { SYMBOL_NAMES, SYMBOL_DECIMALS, SYMBOL_TICKERS, COIN_COLORS } from '../../types';
 import { formatPrice } from '../../utils/formatPrice';
 import { formatVolume } from '../../utils/formatVolume';
+import { parseChange24h } from '../../utils/parseChange';
 
 interface ProductListRowProps {
   symbol: string;
@@ -28,7 +29,7 @@ function ProductListRow({
   const decimals = SYMBOL_DECIMALS[symbol] ?? 2;
   const ticker_display = SYMBOL_TICKERS[symbol] ?? symbol.replace('USD', '');
   const coinColor = COIN_COLORS[symbol] ?? '#6c7fff';
-  const change = (parseFloat(ticker?.change_24h ?? '1') - 1) * 100;
+  const change = parseChange24h(ticker?.change_24h ?? null);
   const isPositive = change >= 0;
 
   return (

@@ -3,6 +3,7 @@ import type { Ticker } from '../types';
 import type { RawTicker } from '../types/rawShapes';
 import { useWsContext } from '../store/WebSocketContext';
 import { THROTTLE_MS } from '../constants';
+import { mapTicker } from '../utils/mappers';
 
 
 
@@ -27,21 +28,10 @@ export function useAllTickers(symbols: readonly string[]) {
     });
 
     const pending = pendingRef.current
-    const remove = service.addmsgHandler((data) => {
+    const remove = service.addMsgHandler((data) => {
       const msg = data as RawTicker;
       if (msg.type === 'v2/ticker' && symbols.includes(msg.symbol)) {
-        pendingRef.current.set(msg.symbol, {
-          symbol: msg.symbol,
-          price: String(msg.close),
-          mark_price: msg.mark_price,
-          high: String(msg.high),
-          low: String(msg.low),
-          volume: String(msg.volume),
-          change_24h: msg.ltp_change_24h,
-          funding_rate: msg.funding_rate,
-          quotes: msg.quotes,
-          timestamp: msg.timestamp,
-        });
+        pendingRef.current.set(msg.symbol, mapTicker(msg));
         if (!timerRef.current) {
           timerRef.current = setTimeout(() => {
             timerRef.current = null;

@@ -1,5 +1,5 @@
 export interface RawTicker {
-  type: string;
+  type: 'v2/ticker';
   symbol: string;
   close: number;
   mark_price: string;
@@ -13,7 +13,7 @@ export interface RawTicker {
 }
 
 export interface RawOrderbook {
-  type: string;
+  type: 'l2_orderbook';
   symbol: string;
   bids: [string, string][];
   asks: [string, string][];
@@ -21,7 +21,7 @@ export interface RawOrderbook {
 }
 
 export interface RawTrade {
-  type: string;
+  type: 'all_trades';
   symbol: string;
   price: string;
   size: number;

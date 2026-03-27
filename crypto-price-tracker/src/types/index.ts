@@ -52,6 +52,7 @@ export interface OrderbookSnapshot {
 }
 
 export interface Trade {
+  id: string;
   symbol: string;
   price: string;
   size: number;

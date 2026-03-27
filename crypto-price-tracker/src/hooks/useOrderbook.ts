@@ -16,7 +16,7 @@ export function useOrderbook(symbol: string) {
         if(status!='connected') return;
 
         service.subscribe('l2_orderbook',symbol);
-        const remove = service.addmsgHandler((data)=>{
+        const remove = service.addMsgHandler((data)=>{
             const msg = data as RawOrderbook;
             if(msg.type === 'l2_orderbook' && msg.symbol === symbol)
             {

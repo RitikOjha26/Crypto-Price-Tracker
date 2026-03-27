@@ -29,7 +29,7 @@ export function useProductDetail(symbol: string) {
 
         service.subscribeChannels(channels);
 
-        const remove = service.addmsgHandler((data) => {
+        const remove = service.addMsgHandler((data) => {
             const msg = data as RawMessage;
 
             if (msg.symbol !== symbol) return;

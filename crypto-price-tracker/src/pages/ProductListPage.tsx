@@ -12,7 +12,7 @@ type Filter = 'all' | 'favorites';
 
 export default function ProductListPage() {
   const navigate = useNavigate();
-  const { status } = useWsContext();
+  const { status, reconnect } = useWsContext();
   const { theme } = useTheme();
   const favorites = useFavorite();
 
@@ -63,6 +63,11 @@ export default function ProductListPage() {
           <span className={`hero__status-label${status === 'disconnected' ? ' hero__status-label--muted' : ''}`}>
             {statusLabel}
           </span>
+          {(status === 'disconnected' || status === 'error') && (
+            <button className="hero__retry-btn" onClick={reconnect} aria-label="Retry connection">
+              Retry
+            </button>
+          )}
         </div>
         <h1 className="hero__title">Live Crypto Markets</h1>
         <p className="hero__subtitle">

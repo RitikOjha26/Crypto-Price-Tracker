@@ -1,4 +1,4 @@
-import { memo, useRef, useEffect } from 'react';
+import { memo, useRef, useEffect, useMemo } from 'react';
 import type { Trade } from '../../types';
 import { SYMBOL_DECIMALS } from '../../types';
 import { formatPrice } from '../../utils/formatPrice';
@@ -15,9 +15,15 @@ function RecentTrades({ trades, symbol }: RecentTradesProps) {
   const prevKeySetRef = useRef<Set<string>>(new Set());
   const bodyRef = useRef<HTMLDivElement>(null);
 
-  const currentKeys = new Set(trades.map((t) => `${t.timestamp}-${t.price}-${t.side}`));
-  const newKeys = new Set([...currentKeys].filter((k) => !prevKeySetRef.current.has(k)));
-  prevKeySetRef.current = currentKeys;
+  const newKeys = useMemo(() => {
+    const currentIds = new Set(trades.map((t) => t.id));
+    const fresh = new Set([...currentIds].filter((id) => !prevKeySetRef.current.has(id)));
+    return fresh;
+  }, [trades]);
+
+  useEffect(() => {
+    prevKeySetRef.current = new Set(trades.map((t) => t.id));
+  }, [trades]);
 
   useEffect(() => { prevKeySetRef.current = new Set(); }, [symbol]);
 
@@ -45,12 +51,10 @@ function RecentTrades({ trades, symbol }: RecentTradesProps) {
         <div className="recent-trades__empty">Waiting for trades&hellip;</div>
       ) : (
         <div className="recent-trades__body" ref={bodyRef}>
-          {trades.map((trade) => {
-            const key = `${trade.timestamp}-${trade.price}-${trade.side}`;
-            return (
+          {trades.map((trade) => (
             <div
-              key={key}
-              className={`recent-trades__row${newKeys.has(key) ? ' recent-trades__row--new' : ''}`}
+              key={trade.id}
+              className={`recent-trades__row${newKeys.has(trade.id) ? ' recent-trades__row--new' : ''}`}
             >
               <span
                 className={`recent-trades__cell ${
@@ -79,8 +83,7 @@ function RecentTrades({ trades, symbol }: RecentTradesProps) {
                 {formatTime(trade.timestamp)}
               </span>
             </div>
-            );
-          })}
+          ))}
         </div>
       )}
     </div>

@@ -1,6 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { SYMBOL_NAMES, SYMBOL_DECIMALS } from '../../types';
 import { formatPrice } from '../../utils/formatPrice';
+import { parseChange24h } from '../../utils/parseChange';
 
 interface CoinHeaderProps {
   symbol: string;
@@ -11,7 +12,7 @@ interface CoinHeaderProps {
 export default function CoinHeader({ symbol, price, change24h }: CoinHeaderProps) {
   const name = SYMBOL_NAMES[symbol] ?? symbol;
   const decimals = SYMBOL_DECIMALS[symbol] ?? 2;
-  const change = (parseFloat(change24h ?? '1') - 1) * 100;
+  const change = parseChange24h(change24h);
   const isPositive = change >= 0;
 
   const priceRef = useRef<HTMLSpanElement>(null);

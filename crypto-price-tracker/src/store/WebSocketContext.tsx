@@ -5,11 +5,12 @@ import { WebSocketService, type ConnectionStatus } from "../services/WebSocketSe
 interface WsContextValue {
     service: WebSocketService;
     status: ConnectionStatus;
+    reconnect: () => void;
 }
 
 const WsContext = createContext<WsContextValue | null>(null);
 
-export function WebSockerProvider({ children }: { children: ReactNode }) {
+export function WebSocketProvider({ children }: { children: ReactNode }) {
 
     const [status, setStatus] = useState<ConnectionStatus>('disconnected');
     const WS_URL = import.meta.env.VITE_WEB_SOCKET_URL
@@ -24,7 +25,7 @@ export function WebSockerProvider({ children }: { children: ReactNode }) {
     }, [service]);
 
     return (
-    <WsContext.Provider value={{ service: service, status }}>
+    <WsContext.Provider value={{ service, status, reconnect: () => service.reconnect() }}>
       {children}
     </WsContext.Provider>
   );

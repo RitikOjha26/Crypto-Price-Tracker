@@ -27,6 +27,7 @@ export function mapOrderbook(raw: RawOrderbook): OrderbookSnapshot {
 
 export function mapTrade(raw: RawTrade): Trade {
     return {
+        id: `${raw.timestamp}-${raw.price}-${raw.size}-${raw.buyer_role}`,
         symbol: raw.symbol,
         price: raw.price,
         size: raw.size,
