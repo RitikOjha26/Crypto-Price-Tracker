@@ -21,20 +21,22 @@ export default function ProductList({
     return symbols.map((symbol, index) => ({
       symbol,
       rank: index + 1,
+      index,
       ticker: tickers.get(symbol),
     }));
   }, [tickers, symbols]);
 
   return (
-    <div className="product-list" role="region" aria-label="Crypto assets table" tabIndex={0}>
+    <div className="product-list" role="region" aria-label="Crypto assets table">
       <table className="product-list__table">
         <thead>
           <tr>
             <th className="product-list__th product-list__col--rank">#</th>
             <th className="product-list__th product-list__col--symbol">Asset</th>
             <th className="product-list__th product-list__col--price">Price</th>
-            <th className="product-list__th product-list__col--change">24h Change</th>
-            <th className="product-list__th product-list__col--volume">Volume</th>
+            <th className="product-list__th product-list__col--price-change">Price / 24h</th>
+            <th className="product-list__th product-list__col--change">24H Change</th>
+            <th className="product-list__th product-list__col--volume">Vol</th>
             <th className="product-list__th product-list__col--fav" aria-label="Favorite" />
           </tr>
         </thead>
@@ -46,11 +48,12 @@ export default function ProductList({
               </td>
             </tr>
           ) : (
-            rows.map(({ symbol, rank, ticker }) => (
+            rows.map(({ symbol, rank, index, ticker }) => (
               <ProductListRow
                 key={symbol}
                 symbol={symbol}
                 rank={rank}
+                index={index}
                 ticker={ticker}
                 isFavorite={favorites.isFavorite(symbol)}
                 onSelect={onSelect}

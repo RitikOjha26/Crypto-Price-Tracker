@@ -146,7 +146,7 @@ function Orderbook({ orderbook, symbol }: OrderbookProps) {
                 ${formatPrice(spread, decimals)}
               </span>
               <span className="orderbook__spread-pct">
-                ({spreadPct!.toFixed(3)}%)
+                ({spreadPct?.toFixed(3) ?? '0.000'}%)
               </span>
             </div>
           )}

@@ -1,5 +1,6 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Star, Sun, Moon, ChevronRight } from 'lucide-react';
+import { Star, Sun, Moon, ChevronRight, Menu, X } from 'lucide-react';
 import { useTheme } from '../../store/ThemeContext';
 
 interface DetailNavbarProps {
@@ -15,48 +16,82 @@ export default function DetailNavbar({
 }: DetailNavbarProps) {
   const navigate = useNavigate();
   const { theme, toggle: toggleTheme } = useTheme();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className="detail-navbar">
-      <a className="detail-navbar__brand" onClick={() => navigate('/')}>
-        <span className="detail-navbar__brand-icon" aria-hidden="true" />
-        <span className="detail-navbar__brand-name">
-          Crypto<span className="detail-navbar__brand-accent">Lens</span>
-        </span>
-      </a>
-
-      <span className="detail-navbar__sep" />
-
-      <div className="detail-navbar__breadcrumb">
-        <a
-          className="detail-navbar__breadcrumb-link"
-          onClick={() => navigate('/')}
-        >
-          Markets
+    <div className="detail-navbar-wrapper">
+      <nav className="detail-navbar">
+        <a className="detail-navbar__brand" onClick={() => navigate('/')}>
+          <span className="detail-navbar__brand-icon" aria-hidden="true" />
+          <span className="detail-navbar__brand-name">
+            Crypto<span className="detail-navbar__brand-accent">Lens</span>
+          </span>
         </a>
-        <ChevronRight className="detail-navbar__breadcrumb-sep" size={14} />
-        <span className="detail-navbar__breadcrumb-current">{symbol}</span>
-      </div>
 
-      <div className="detail-navbar__actions">
-        <button
-          className={`detail-navbar__action-btn ${isFavorite ? 'detail-navbar__action-btn--fav-active' : ''}`}
-          onClick={onToggleFavorite}
-          aria-label={isFavorite ? 'Remove from watchlist' : 'Add to watchlist'}
-        >
-          <Star size={15} fill={isFavorite ? 'currentColor' : 'none'} />
-          <span>Watchlist</span>
-        </button>
+        <span className="detail-navbar__sep" />
 
+        <div className="detail-navbar__breadcrumb">
+          <a
+            className="detail-navbar__breadcrumb-link"
+            onClick={() => navigate('/')}
+          >
+            Markets
+          </a>
+          <ChevronRight className="detail-navbar__breadcrumb-sep" size={14} />
+          <span className="detail-navbar__breadcrumb-current">{symbol}</span>
+        </div>
+
+        <div className="detail-navbar__actions">
+          <button
+            className={`detail-navbar__action-btn ${isFavorite ? 'detail-navbar__action-btn--fav-active' : ''}`}
+            onClick={onToggleFavorite}
+            aria-label={isFavorite ? 'Remove from watchlist' : 'Add to watchlist'}
+          >
+            <Star size={15} fill={isFavorite ? 'currentColor' : 'none'} />
+            <span>Watchlist</span>
+          </button>
+
+          <button
+            className="detail-navbar__action-btn"
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+          >
+            {theme === 'dark' ? <Sun size={15} /> : <Moon size={15} />}
+            <span>Theme</span>
+          </button>
+        </div>
+
+        {/* Hamburger — mobile only */}
         <button
-          className="detail-navbar__action-btn"
-          onClick={toggleTheme}
-          aria-label="Toggle theme"
+          className="detail-navbar__hamburger"
+          onClick={() => setMenuOpen((v) => !v)}
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={menuOpen}
         >
-          {theme === 'dark' ? <Sun size={15} /> : <Moon size={15} />}
-          <span>Theme</span>
+          {menuOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
-      </div>
-    </nav>
+      </nav>
+
+      {menuOpen && (
+        <div className="detail-navbar__mobile-menu">
+          <button
+            className={`detail-navbar__mobile-menu-btn ${isFavorite ? 'detail-navbar__mobile-menu-btn--fav-active' : ''}`}
+            onClick={() => { onToggleFavorite(); setMenuOpen(false); }}
+            aria-label={isFavorite ? 'Remove from watchlist' : 'Add to watchlist'}
+          >
+            <Star size={16} fill={isFavorite ? 'currentColor' : 'none'} aria-hidden="true" />
+            <span>Watchlist</span>
+          </button>
+          <button
+            className="detail-navbar__mobile-menu-btn"
+            onClick={() => { toggleTheme(); setMenuOpen(false); }}
+            aria-label="Toggle theme"
+          >
+            {theme === 'dark' ? <Sun size={16} aria-hidden="true" /> : <Moon size={16} aria-hidden="true" />}
+            <span>Theme</span>
+          </button>
+        </div>
+      )}
+    </div>
   );
 }

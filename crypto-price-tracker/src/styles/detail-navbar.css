@@ -1,8 +1,12 @@
-/* ── Detail Navbar ────────────────────────────────────────────────────────── */
-.detail-navbar {
+/* ── Detail Navbar wrapper (sticky container) ─────────────────────────────── */
+.detail-navbar-wrapper {
   position: sticky;
   top: 0;
   z-index: 100;
+}
+
+/* ── Detail Navbar ────────────────────────────────────────────────────────── */
+.detail-navbar {
   height: 64px;
   display: flex;
   align-items: center;
@@ -116,21 +120,88 @@
   border-color: rgba(245, 200, 66, 0.3);
 }
 
+/* ── Hamburger button (hidden on desktop) ──────────────────────────────────── */
+.detail-navbar__hamburger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  border: 1px solid var(--clr-border);
+  background: var(--clr-surface);
+  color: var(--clr-text-secondary);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  margin-left: auto;
+}
+
+.detail-navbar__hamburger:hover {
+  background: var(--clr-surface-hover);
+  color: var(--clr-text-primary);
+}
+
+/* ── Mobile menu ───────────────────────────────────────────────────────────── */
+.detail-navbar__mobile-menu {
+  background: var(--clr-navbar-bg);
+  backdrop-filter: blur(24px) saturate(1.6);
+  -webkit-backdrop-filter: blur(24px) saturate(1.6);
+  border-bottom: 1px solid var(--clr-navbar-border);
+  padding: 8px 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.detail-navbar__mobile-menu-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--clr-border);
+  background: var(--clr-surface);
+  color: var(--clr-text-secondary);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  text-align: left;
+}
+
+.detail-navbar__mobile-menu-btn:hover {
+  background: var(--clr-surface-hover);
+  color: var(--clr-text-primary);
+  border-color: var(--clr-border-active);
+}
+
+.detail-navbar__mobile-menu-btn--fav-active {
+  color: var(--clr-gold);
+  background: rgba(245, 200, 66, 0.1);
+  border-color: rgba(245, 200, 66, 0.3);
+}
+
 @media (max-width: 640px) {
   .detail-navbar {
     padding: 0 14px;
     gap: 10px;
+    justify-content: space-between;
   }
 
   .detail-navbar__brand-name {
     display: none;
   }
 
-  .detail-navbar__action-btn span {
+  /* Hide desktop action buttons, show hamburger */
+  .detail-navbar__actions {
     display: none;
   }
 
-  .detail-navbar__action-btn {
-    padding: 0 10px;
+  .detail-navbar__hamburger {
+    display: flex;
+    margin-left: 0;
   }
 }

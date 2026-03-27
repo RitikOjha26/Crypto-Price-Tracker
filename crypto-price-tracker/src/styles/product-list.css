@@ -2,7 +2,8 @@
 .product-list {
   background: var(--clr-surface);
   border: 1px solid var(--clr-border);
-  border-radius: 0.875rem;
+  border-radius: 14px;
+  overflow: hidden;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
@@ -10,28 +11,33 @@
 .product-list__table {
   width: 100%;
   border-collapse: collapse;
-  table-layout: fixed;
+  min-width: 600px;
 }
 
-/* ── Column widths (fixed → no CLS) ──────────────────────────────────────── */
-.product-list__col--rank   { width: 3rem; }
+/* ── Column widths ────────────────────────────────────────────────────────── */
+.product-list__col--rank   { width: 40px; }
 .product-list__col--symbol { width: auto; min-width: 10rem; }
 .product-list__col--price  { width: 10rem; }
 .product-list__col--change { width: 9rem; }
 .product-list__col--volume { width: 9rem; }
-.product-list__col--fav    { width: 3rem; }
+.product-list__col--fav    { width: 44px; }
 
 /* ── Header cells ─────────────────────────────────────────────────────────── */
 .product-list__th {
-  padding: 0.75rem 1rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
+  padding: 12px 20px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.7px;
   text-transform: uppercase;
-  color: var(--clr-text-secondary);
+  color: var(--clr-text-muted);
   text-align: left;
   border-bottom: 1px solid var(--clr-border);
   white-space: nowrap;
+}
+
+.product-list__th.product-list__col--rank {
+  text-align: center;
 }
 
 .product-list__th.product-list__col--price,
@@ -44,33 +50,16 @@
   text-align: center;
 }
 
-/* Sort button */
-.product-list__sort-btn {
-  background: none;
-  border: none;
-  padding: 0;
-  font: inherit;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--clr-text-secondary);
-  cursor: pointer;
-  transition: color 0.15s;
-}
-
-.product-list__sort-btn:hover {
-  color: var(--clr-text-primary);
-}
-
-.product-list__sort-btn--active {
-  color: var(--clr-accent);
-}
-
 /* ── Rows ─────────────────────────────────────────────────────────────────── */
 .product-list__row {
   cursor: pointer;
   transition: background 0.12s;
+  border-bottom: 1px solid var(--clr-border);
+  animation: fadeUp 0.35s ease both;
+}
+
+.product-list__row:last-child {
+  border-bottom: none;
 }
 
 .product-list__row:hover {
@@ -82,17 +71,18 @@
   outline-offset: -2px;
 }
 
-.product-list__row + .product-list__row .product-list__td {
-  border-top: 1px solid var(--clr-border);
-}
-
 /* ── Cells ────────────────────────────────────────────────────────────────── */
 .product-list__td {
-  padding: 0.875rem 1rem;
+  height: 62px;
+  padding: 0 20px;
   vertical-align: middle;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.product-list__td.product-list__col--rank {
+  text-align: center;
 }
 
 .product-list__td.product-list__col--price,
@@ -109,8 +99,10 @@
 
 /* Rank */
 .product-list__rank {
-  font-size: 0.8125rem;
-  color: var(--clr-text-secondary);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--clr-text-muted);
   font-variant-numeric: tabular-nums;
 }
 
@@ -118,34 +110,36 @@
 .product-list__asset {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 12px;
 }
 
 .product-list__asset-initial {
-  width: 2rem;
-  height: 2rem;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
-  background: var(--clr-accent-muted);
-  color: var(--clr-accent);
-  font-weight: 700;
-  font-size: 0.8125rem;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   text-transform: uppercase;
+  /* bg and color set via inline style per coin */
 }
 
 .product-list__asset-info {
   display: flex;
   flex-direction: column;
-  gap: 0.1rem;
+  gap: 0;
   min-width: 0;
 }
 
 .product-list__asset-name {
-  font-size: 0.9375rem;
-  font-weight: 600;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 700;
   color: var(--clr-text-primary);
   overflow: hidden;
   text-overflow: ellipsis;
@@ -153,111 +147,249 @@
 }
 
 .product-list__asset-symbol {
-  font-size: 0.75rem;
-  color: var(--clr-text-secondary);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--clr-text-muted);
+  margin-top: 1px;
 }
 
 /* Price */
 .product-list__price {
+  font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
-  font-size: 0.9375rem;
+  font-size: 14.5px;
   font-weight: 500;
   color: var(--clr-text-primary);
   display: inline-block;
-  min-width: 7ch;
 }
 
 /* Change badge */
 .product-list__badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
-  padding: 0.2rem 0.5rem;
-  border-radius: 0.375rem;
-  font-size: 0.8125rem;
-  font-weight: 600;
+  gap: 4px;
+  padding: 4px 9px;
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
   font-variant-numeric: tabular-nums;
-  min-width: 5.5rem;
-  justify-content: flex-end;
 }
 
 .product-list__badge--up {
-  background: var(--clr-up-muted);
+  background: var(--clr-green-bg);
   color: var(--clr-up);
 }
 
 .product-list__badge--down {
-  background: var(--clr-down-muted);
+  background: var(--clr-red-bg);
   color: var(--clr-down);
-}
-
-.product-list__badge-arrow {
-  font-size: 0.625rem;
 }
 
 /* Volume */
 .product-list__volume {
+  font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
-  font-size: 0.9375rem;
+  font-size: 13.5px;
+  font-weight: 400;
   color: var(--clr-text-secondary);
   display: inline-block;
-  min-width: 5ch;
 }
 
-/* Placeholder */
+/* Placeholder (no data) */
 .product-list__placeholder {
-  color: var(--clr-text-secondary);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--clr-text-muted);
 }
 
 /* Favorite button */
 .product-list__fav-btn {
   background: none;
   border: none;
-  padding: 0.25rem;
+  padding: 4px;
   cursor: pointer;
-  color: var(--clr-text-secondary);
+  color: var(--clr-text-muted);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 0.25rem;
-  transition: color 0.15s, background 0.15s;
+  border-radius: 5px;
+  transition: color 0.15s, transform 0.12s;
 }
 
 .product-list__fav-btn:hover {
-  color: var(--clr-text-primary);
-  background: var(--clr-surface-hover);
+  color: var(--clr-gold);
+  transform: scale(1.15);
 }
 
 .product-list__fav-btn--active {
-  color: #facc15;
+  color: var(--clr-gold);
 }
 
 .product-list__fav-btn--active:hover {
-  color: #fbbf24;
+  color: var(--clr-gold);
 }
 
 /* ── Empty state ──────────────────────────────────────────────────────────── */
 .product-list__empty {
-  padding: 4rem 1rem;
+  padding: 60px 20px;
   text-align: center;
-  color: var(--clr-text-secondary);
-  font-size: 0.9375rem;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--clr-text-muted);
 }
 
-/* ── Responsive ───────────────────────────────────────────────────────────── */
-@media (max-width: 640px) {
+/* ── Animations ───────────────────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Desktop: hide the mobile-only combined cell */
+.product-list__col--price-change {
+  display: none;
+}
+
+/* ── Mobile layout (≤ 680px) ──────────────────────────────────────────────── */
+@media (max-width: 680px) {
+  /* Prevent the wrapper from scrolling horizontally on mobile */
+  .product-list {
+    overflow-x: hidden;
+  }
+
+  /* Escape table formatting so we can use CSS grid on rows */
+  .product-list__table,
+  .product-list__table thead,
+  .product-list__table tbody {
+    display: block;
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /*
+   * Grid: ★(36px) | ticker(auto) | price+change(minmax(0,1fr)) | vol(56px)
+   * minmax(0, 1fr) is critical — plain 1fr keeps min-width:auto so it
+   * overflows; the 0 lets the track actually shrink and fill correctly.
+   */
+  .product-list__table thead tr,
+  .product-list__row {
+    display: grid;
+    grid-template-columns: 36px auto minmax(0, 1fr) 56px;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    align-items: center;
+  }
+
+  /* Column order: fav=1, symbol=2, price-change=3, volume=4 */
+  .product-list__col--fav          { order: 1; }
+  .product-list__col--symbol       { order: 2; }
+  .product-list__col--price-change { order: 3; width: 80%; }
+  .product-list__col--volume       { order: 4; width: 95%; }
+
+  /* Hide columns not needed on mobile (two-class specificity beats display:flex above) */
+  .product-list__th.product-list__col--rank,
+  .product-list__td.product-list__col--rank,
+  .product-list__th.product-list__col--price,
+  .product-list__td.product-list__col--price,
+  .product-list__th.product-list__col--change,
+  .product-list__td.product-list__col--change {
+    display: none !important;
+  }
+
+  /* Base cell sizing — tight padding so columns fit on narrow screens */
   .product-list__th,
   .product-list__td {
-    padding: 0.75rem 0.625rem;
+    padding: 0 6px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    overflow: hidden;
+    box-sizing: border-box;
   }
 
-  .product-list__col--volume {
+  .product-list__th.product-list__col--fav,
+  .product-list__td.product-list__col--fav {
+    justify-content: center;
+    padding: 0;
+  }
+
+  .product-list__th.product-list__col--symbol,
+  .product-list__td.product-list__col--symbol {
+    padding-left: 8px;
+  }
+
+  .product-list__th.product-list__col--volume,
+  .product-list__td.product-list__col--volume {
+    justify-content: flex-end;
+    padding-right: 8px;
+  }
+
+  .product-list__th.product-list__col--price-change,
+  .product-list__td.product-list__col--price-change {
+    justify-content: flex-end;
+  }
+
+  /* In the symbol cell: hide avatar + full name, show ticker only */
+  .product-list__asset-initial,
+  .product-list__asset-name {
     display: none;
   }
-}
 
-@media (max-width: 420px) {
-  .product-list__col--change {
-    display: none;
+  .product-list__asset {
+    gap: 0;
+  }
+
+  .product-list__asset-symbol {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--clr-text-primary);
+    letter-spacing: 0;
+    margin-top: 0;
+    text-transform: uppercase;
+  }
+
+  /* Stacked price + badge in the combined cell */
+  .product-list__price-change-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 3px;
+  }
+
+  .product-list__price-change-stack .product-list__price {
+    font-size: 13px;
+  }
+
+  .product-list__price-change-stack .product-list__badge {
+    font-size: 11.5px;
+    padding: 2px 6px;
+  }
+
+  /* Volume — smaller font to fit the 56px track */
+  .product-list__volume {
+    font-size: 10.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+
+  /* Price in combined cell — slightly smaller */
+  .product-list__price-change-stack .product-list__price {
+    font-size: 12.5px;
+  }
+
+  .product-list__price-change-stack .product-list__badge {
+    font-size: 11px;
+    padding: 2px 5px;
   }
 }

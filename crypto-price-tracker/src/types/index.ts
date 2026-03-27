@@ -92,3 +92,21 @@ export const SYMBOL_DECIMALS: Record<string, number> = {
   PAXGUSD: 2,
   DOGEUSD: 6,
 };
+
+export const SYMBOL_TICKERS: Record<string, string> = {
+  BTCUSD: 'BTC',
+  ETHUSD: 'ETH',
+  XRPUSD: 'XRP',
+  SOLUSD: 'SOL',
+  PAXGUSD: 'PAXG',
+  DOGEUSD: 'DOGE',
+};
+
+export const COIN_COLORS: Record<string, string> = {
+  BTCUSD: '#f7931a',
+  ETHUSD: '#627eea',
+  SOLUSD: '#9945ff',
+  XRPUSD: '#00aae4',
+  PAXGUSD: '#f0b90b',
+  DOGEUSD: '#c2a633',
+};

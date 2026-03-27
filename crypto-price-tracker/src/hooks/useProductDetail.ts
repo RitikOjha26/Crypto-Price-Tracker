@@ -6,6 +6,7 @@ import { MAX_TRADES, THROTTLE_MS } from "../constants";
 import { useWsContext } from "../store/WebSocketContext";
 import { useThrottledState } from "./useThrottledState";
 
+type RawMessage = RawTicker | RawOrderbook | RawTrade;
 
 export function useProductDetail(symbol: string) {
     const { service, status } = useWsContext();
@@ -29,18 +30,21 @@ export function useProductDetail(symbol: string) {
         service.subscribeChannels(channels);
 
         const remove = service.addmsgHandler((data) => {
-            const msg = data as RawOrderbook & RawTicker & RawTrade;
+            const msg = data as RawMessage;
 
             if (msg.symbol !== symbol) return;
 
             if (msg.type === 'v2/ticker') {
-                setTicker(mapTicker(msg));
+                const t = msg as RawTicker; 
+                setTicker(mapTicker(t));
             }
             else if (msg.type === 'l2_orderbook') {
-                setOrderbook(mapOrderbook(msg));
+                const t = msg as RawOrderbook; 
+                setOrderbook(mapOrderbook(t));
             }
             else if (msg.type === 'all_trades') {
-                pendingTradesRef.current.unshift(mapTrade(msg));
+                const t = msg as RawTrade; 
+                pendingTradesRef.current.unshift(mapTrade(t));
                 if (!tradesTimerRef.current) {
                     tradesTimerRef.current = setTimeout(() => {
                         tradesTimerRef.current = null;
@@ -59,6 +63,7 @@ export function useProductDetail(symbol: string) {
                 clearTimeout(tradesTimerRef.current)
                 tradesTimerRef.current = null;
             }
+            pendingTradesRef.current = [];
             remove();
         }
     },[symbol, service, status])

@@ -9,12 +9,14 @@
 }
 
 .page__table-section {
-  padding: 0 1.5rem 3rem;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 24px 3rem;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 680px) {
   .page__table-section {
-    padding: 0 0.75rem 2rem;
+    padding: 0 14px 2rem;
   }
 }
 

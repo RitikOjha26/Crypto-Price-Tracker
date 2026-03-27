@@ -19,7 +19,7 @@ export class WebSocketService {
     private messageQueue: WsOutboundMessage[] = [];
 
     constructor(
-        url: string = `ws://${import.meta.env.VITE_WEB_SOCKET_URL}`,
+        url: string = `${import.meta.env.VITE_WEB_SOCKET_URL}`,
         onStatusChange: (status: ConnectionStatus) => void = () => { },
     ) {
         this.url = url;
