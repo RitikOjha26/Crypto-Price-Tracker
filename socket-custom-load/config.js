@@ -1,4 +1,4 @@
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 const HTTP_PORT = 3000;
 
 // Symbol definitions: price range, decimal precision, tick size for orderbook spread
