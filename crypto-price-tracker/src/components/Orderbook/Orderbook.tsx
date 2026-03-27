@@ -120,7 +120,7 @@ function Orderbook({ orderbook, symbol }: OrderbookProps) {
           <div className="orderbook__asks" ref={asksRef}>
             {asks.map((level) => (
               <div
-                key={`ask-${level.price}`}
+                key={`ask-${level.price}-${asks.indexOf(level)}`}
                 className="orderbook__row orderbook__row--ask"
               >
                 <div
@@ -166,7 +166,7 @@ function Orderbook({ orderbook, symbol }: OrderbookProps) {
           <div className="orderbook__bids" ref={bidsRef}>
             {bids.map((level) => (
               <div
-                key={`bid-${level.price}`}
+                key={`bid-${level.price}-${bids.indexOf(level)}`}
                 className="orderbook__row orderbook__row--bid"
               >
                 <div
